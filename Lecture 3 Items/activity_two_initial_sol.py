@@ -1,3 +1,6 @@
+## The code he made will be sent to all of us
+
+
 ## Activity 3.2 Lecture 3 
 ## 2D Transformation
 ## Create an earth rotating around the sun using Homogeneous Representation
@@ -20,16 +23,28 @@ sun, = ax.plot([0], [0], 'r.', ms = 50)
 earth = np.array([[0, 0], [1, 1.2], [1, 1]])
 t = np.identity(3)
 n_step = 1000
+
+#trans, = np.array([earth * n_step]) #create nstep arrays of earth (array of earth arrays)
+
 delta_theta = 0.01
+
+
 earth_loc, = ax.plot(earth[0, 0], earth[1, 0], 'g.', ms = 20)
 earth_orient, = ax.plot(earth[0, :], earth[1, :], 'g', lw = 2)
 #must update earth_loc and earth_orient to visualize movememt
-earth_loc.set_data(np.cos(delta_theta), -(np.sin(delta_theta)))
-earth_orient.set_data(np.sin(delta_theta), np.cos(delta_theta))
+
+earth_loc.set_data(XX, XX)
+earth_orient.set_data(XX, XX)
+#earth_loc.set_data(*np.cos(delta_theta), *-(np.sin(delta_theta)))
+#earth_orient.set_data(np.sin(delta_theta), np.cos(delta_theta))
+
+#earth_loc.set_data([[(1 * np.cos(delta_theta)), (1 * -(np.sin(delta_theta)))], [(1 * np.sin(delta_theta)), (1.2 * np.cos(delta_theta))] ], )
+#earth_orient.set_data(1, 0)
+
 
 #to visualize the movement
-def update_draw(frames, earth_poses):
-    pose = earth_poses[frames]
+def update_draw(frames, trans):
+    pose = np.matul(trans[frames], earth)
     earth_loc.set_data(pose[0, 0], pose[1, 0])
     earth_orient.set_data(pose[0, :], pose[1, :])
     return (earth_orient,)    
